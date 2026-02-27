@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Verification | Eco-Route</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #F7FFFB 0%, #E8F7F1 50%, #F0F9F5 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      padding: 40px 30px;
+      border: 1px solid rgba(47, 125, 79, 0.1);
+    }
+
+    .header {
+      margin-bottom: 30px;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      color: #2F7D4F;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      padding: 0;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      transform: translateX(-4px);
+    }
+
+    h1 {
+      color: #1a1a1a;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 0;
+      position: relative;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      position: relative;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #2F7D4F;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .step.completed .step-number {
+      background: #76C893;
+    }
+
+    .step.current .step-number {
+      background: #2F7D4F;
+      box-shadow: 0 0 0 4px rgba(47, 125, 79, 0.2);
+    }
+
+    .step-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #999;
+      text-align: center;
+    }
+
+    .step.current .step-label,
+    .step.completed .step-label {
+      color: #2F7D4F;
+    }
+
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      width: 100%;
+      height: 2px;
+      background: #e0e0e0;
+      z-index: -1;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    input[type="email"],
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #2F7D4F;
+      box-shadow: 0 0 0 4px rgba(47, 125, 79, 0.1);
+    }
+
+    input:disabled {
+      background: #f5f5f5;
+      color: #999;
+      cursor: not-allowed;
+    }
+
+    .captcha-box {
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 20px;
+      background: #f9f9f9;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .captcha-checkbox {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .captcha-text {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .captcha-text strong {
+      color: #1a1a1a;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2F7D4F 0%, #25634A 100%);
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(47, 125, 79, 0.3);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #2F7D4F;
+      border: 2px solid #2F7D4F;
+    }
+
+    .btn-secondary:hover {
+      background: #F0F9F5;
+    }
+
+    .otp-input-group {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .otp-input {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      transition: all 0.2s;
+    }
+
+    .otp-input:focus {
+      outline: none;
+      border-color: #2F7D4F;
+      box-shadow: 0 0 0 4px rgba(47, 125, 79, 0.1);
+    }
+
+    .otp-input.filled {
+      border-color: #2F7D4F;
+    }
+
+    .resend-otp {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+
+    .resend-link {
+      color: #2F7D4F;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .resend-link:hover {
+      text-decoration: underline;
+    }
+
+    .resend-link:disabled {
+      color: #999;
+      cursor: not-allowed;
+    }
+
+    .timer {
+      color: #999;
+      font-weight: 600;
+    }
+
+    .message {
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .message.error {
+      display: block;
+      background: #FFF5F5;
+      color: #E74C3C;
+      border: 1px solid #FFE0E0;
+    }
+
+    .message.success {
+      display: block;
+      background: #F0F9F5;
+      color: #2F7D4F;
+      border: 1px solid #76C893;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      .otp-input {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+
+      .step-label {
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <!-- Header -->
+      <div class="header">
+        <button class="back-btn" onclick="window.history.back()">← Back</button>
+        <h1>Verify Email</h1>
+        <p class="subtitle">Enter your email address to get started with Eco-Route</p>
+      </div>
+
+      <!-- Step Indicator -->
+      <div class="step-indicator">
+        <div class="step current" id="step1">
+          <div class="step-number">1</div>
+          <div class="step-label">Email</div>
+        </div>
+        <div class="step" id="step2">
+          <div class="step-number">2</div>
+          <div class="step-label">OTP</div>
+        </div>
+        <div class="step" id="step3">
+          <div class="step-number">3</div>
+          <div class="step-label">Setup Account</div>
+        </div>
+      </div>
+
+      <!-- Form Content -->
+      <form id="emailForm" onsubmit="handleEmailSubmit(event)">
+        <!-- Step 1: Email Entry -->
+        <div id="step1-content">
+          <div id="message" class="message"></div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              placeholder="you@example.com"
+              required
+            >
+          </div>
+
+          <!-- CAPTCHA -->
+          <div class="captcha-box">
+            <input type="checkbox" id="captcha" class="captcha-checkbox" required>
+            <label for="captcha" class="captcha-text" style="margin: 0; cursor: pointer;">
+              I'm not a robot <strong>reCAPTCHA</strong>
+            </label>
+          </div>
+
+          <button type="button" class="btn-primary" onclick="sendOTP()" style="width: 100%;">
+            Send OTP
+          </button>
+        </div>
+
+        <!-- Step 2: OTP Entry (Hidden) -->
+        <div id="step2-content" style="display: none;">
+          <div id="message-otp" class="message"></div>
+
+          <div class="form-group">
+            <label>Enter 6-digit OTP</label>
+            <p style="color: #666; font-size: 13px; margin-bottom: 16px;">
+              We've sent a one-time password to <strong id="emailDisplay"></strong>
+            </p>
+          </div>
+
+          <div class="otp-input-group" id="otpInputGroup">
+            <input type="text" class="otp-input" maxlength="1" data-index="0" onkeyup="handleOtpInput(event)">
+            <input type="text" class="otp-input" maxlength="1" data-index="1" onkeyup="handleOtpInput(event)">
+            <input type="text" class="otp-input" maxlength="1" data-index="2" onkeyup="handleOtpInput(event)">
+            <input type="text" class="otp-input" maxlength="1" data-index="3" onkeyup="handleOtpInput(event)">
+            <input type="text" class="otp-input" maxlength="1" data-index="4" onkeyup="handleOtpInput(event)">
+            <input type="text" class="otp-input" maxlength="1" data-index="5" onkeyup="handleOtpInput(event)">
+          </div>
+
+          <button type="button" class="btn-primary" onclick="verifyOTP()" style="width: 100%;">
+            Verify OTP
+          </button>
+
+          <div class="resend-otp">
+            Didn't receive OTP?
+            <button 
+              type="button"
+              class="resend-link" 
+              id="resendBtn"
+              onclick="resendOTP()"
+            >
+              Resend
+            </button>
+            <span id="resendTimer" class="timer" style="display: none;"> (Resend in <span id="timerCount">30</span>s)</span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // State management
+    const state = {
+      step: 1,
+      email: null,
+      otp: null,
+      captchaVerified: false,
+      otpSent: false,
+      resendTimer: 0
+    };
+
+    // Utility Functions
+    function showMessage(message, type = 'error', step = 1) {
+      const msgEl = document.getElementById(step === 1 ? 'message' : 'message-otp');
+      msgEl.textContent = message;
+      msgEl.className = `message ${type}`;
+    }
+
+    function updateStepIndicator(stepNum) {
+      document.querySelectorAll('.step').forEach((step, idx) => {
+        step.classList.remove('current', 'completed');
+        if (idx < stepNum - 1) {
+          step.classList.add('completed');
+        } else if (idx === stepNum - 1) {
+          step.classList.add('current');
+        }
+      });
+    }
+
+    function generateMockOTP() {
+      // In production, this would be sent from backend
+      const otp = Math.random().toString().slice(2, 8);
+      // Store in sessionStorage for demo (backend would handle in production)
+      sessionStorage.setItem('mock_otp', otp);
+      console.log('Demo OTP:', otp); // For testing
+      return otp;
+    }
+
+    // Step 1: Email Verification
+    function sendOTP() {
+      const emailInput = document.getElementById('email');
+      const email = emailInput.value.trim().toLowerCase();
+      const captcha = document.getElementById('captcha');
+
+      // Validation
+      if (!email) {
+        showMessage('Please enter your email address', 'error', 1);
+        return;
+      }
+
+      if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        showMessage('Please enter a valid email address', 'error', 1);
+        return;
+      }
+
+      if (!captcha.checked) {
+        showMessage('Please verify you\'re not a robot', 'error', 1);
+        return;
+      }
+
+      // In production, verify with backend
+      // For demo, simulate CAPTCHA verification
+      state.captchaVerified = true;
+      state.email = email;
+
+      // Generate and simulate sending OTP
+      const otp = generateMockOTP();
+
+      // Update UI
+      state.step = 2;
+      state.otpSent = true;
+      document.getElementById('step1-content').style.display = 'none';
+      document.getElementById('step2-content').style.display = 'block';
+      document.getElementById('emailDisplay').textContent = email;
+      updateStepIndicator(2);
+      showMessage('✓ OTP sent successfully!', 'success', 2);
+
+      // Start resend timer
+      startResendTimer();
+
+      // Clear inputs
+      emailInput.value = '';
+      captcha.checked = false;
+    }
+
+    // Step 2: OTP Input Handling
+    function handleOtpInput(e) {
+      const input = e.target;
+      const value = input.value;
+
+      // Only allow digits
+      if (value && !/^\d$/.test(value)) {
+        input.value = '';
+        return;
+      }
+
+      // Move to next input
+      if (value) {
+        input.classList.add('filled');
+        const nextInput = input.nextElementSibling;
+        if (nextInput && nextInput.classList.contains('otp-input')) {
+          nextInput.focus();
+        }
+      } else {
+        input.classList.remove('filled');
+      }
+
+      // Auto-verify when all fields are filled
+      const allFilled = document.querySelectorAll('.otp-input').length === 
+                       document.querySelectorAll('.otp-input.filled').length;
+      if (allFilled) {
+        verifyOTP();
+      }
+    }
+
+    function verifyOTP() {
+      const otpInputs = document.querySelectorAll('.otp-input');
+      const enteredOtp = Array.from(otpInputs).map(input => input.value).join('');
+
+      if (enteredOtp.length !== 6) {
+        showMessage('Please enter all 6 digits', 'error', 2);
+        return;
+      }
+
+      // Get mock OTP from session (in production, verify with backend)
+      const mockOtp = sessionStorage.getItem('mock_otp');
+      
+      if (enteredOtp === mockOtp) {
+        // OTP verified successfully
+        state.step = 3;
+        state.otp = enteredOtp;
+        
+        // Store email in sessionStorage for next step
+        sessionStorage.setItem('verified_email', state.email);
+        
+        // Redirect to account setup
+        window.location.href = '/account-setup';
+      } else {
+        showMessage('Invalid OTP. Please try again.', 'error', 2);
+        otpInputs.forEach(input => input.value = '');
+        otpInputs[0].focus();
+      }
+    }
+
+    // Resend OTP with timer
+    function startResendTimer() {
+      const resendBtn = document.getElementById('resendBtn');
+      const resendTimer = document.getElementById('resendTimer');
+      const timerCount = document.getElementById('timerCount');
+      
+      resendBtn.disabled = true;
+      state.resendTimer = 30;
+      resendTimer.style.display = 'inline';
+
+      const interval = setInterval(() => {
+        state.resendTimer--;
+        timerCount.textContent = state.resendTimer;
+
+        if (state.resendTimer <= 0) {
+          clearInterval(interval);
+          resendBtn.disabled = false;
+          resendTimer.style.display = 'none';
+        }
+      }, 1000);
+    }
+
+    function resendOTP() {
+      if (state.email) {
+        const otp = generateMockOTP();
+        showMessage('✓ OTP resent successfully!', 'success', 2);
+        startResendTimer();
+      }
+    }
+
+    // Initialize CAPTCHA on load
+    window.addEventListener('load', () => {
+      // In production, load actual reCAPTCHA here
+      console.log('Email verification page loaded');
+    });
+  </script>
+</body>
+</html>

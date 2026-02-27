@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Eco-Route - Intelligent eco-friendly transportation suggestions powered by machine learning">
+  <title>Eco-Route | Smart Sustainable Transportation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="logo">
+        <img src="{{ url_for('static', filename='images/eco-route logo.png') }}" alt="Eco-Route Logo" class="logo-img">
+    Eco-Route
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#how" class="nav-link">How It Works</a></li>
+        <li><a href="#impact" class="nav-link">Impact</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li><a href="/login" class="nav-login">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      
+      <h1 class="hero-title">Eco-Friendly  <br><span class="gradient-text"> Transport Suggestion</span></h1>
+      <p class="hero-subtitle">
+        A smart transport solution that helps reduce traffic, pollution, and travel costs by promoting shared, eco-friendly, and efficient transportation options for everyone.      </p>
+      <div class="hero-buttons">
+        <a href="/entry" class="btn btn-primary">
+          <i class="fas fa-play-circle"></i> Get Started Now
+        </a>
+        <a href="#how" class="btn btn-secondary">
+          <i class="fas fa-arrow-down"></i> Learn More
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section class="section features" id="features">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Powerful Features</h2>
+        <p>Everything you need for smarter, greener transportation</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3>AI-Powered Suggestions</h3>
+          <p>Machine learning algorithms analyze real-time data to recommend the most eco-friendly transport options for your journey.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Carbon Footprint Tracking</h3>
+          <p>Monitor your environmental impact and see how much CO₂ you're saving with each eco-friendly choice.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-map-location-dot"></i>
+          </div>
+          <h3>Smart Route Planning</h3>
+          <p>Get optimized routes that help avoid high-impact routes while minimizing fuel consumption and emissions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-mobile-screen"></i>
+          </div>
+          <h3>Easy to Use Interface</h3>
+          <p>Intuitive platform design makes finding eco-friendly transport options quick and effortless for everyone.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Data-Driven Insights</h3>
+          <p>Make informed travel choices using distance-based and eco-impact analysis.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <h3>Secure & Private</h3>
+          <p>Your travel data is protected with enterprise-grade security and privacy standards.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS SECTION -->
+  <section class="section how-it-works" id="how">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>How Eco-Route Works</h2>
+        <p>Simple steps to eco-friendly transportation</p>
+      </div>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Enter Your Details</h3>
+          <p>Input your source, destination, preferred transport mode, and travel preferences.</p>
+          <div class="step-icon">
+            <i class="fas fa-location-crosshairs"></i>
+          </div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>AI Analysis</h3>
+          <p>Our intelligent system analyzes route distance, estimated travel time, and emission factors to compare transport options and suggest the most eco-friendly choice.</p>
+          <div class="step-icon">
+            <i class="fas fa-microchip"></i>
+          </div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Get Results</h3>
+          <p>Receive personalized eco-friendly transport suggestions with detailed environmental impact metrics.</p>
+          <div class="step-icon">
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT SECTION -->
+  <section class="section impact-section" id="impact">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Environmental Impact <span style="font-size: 0.7em; color: #999;">(Estimated)</span></h2>
+        <p>Making a difference, one route at a time</p>
+      </div>
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h3>CO₂ Emissions Reduced</h3>
+          <p>Estimated savings per eco-friendly route</p>
+        </div>
+        <div class="impact-card">
+          <div class="impact-icon">
+            <i class="fas fa-route"></i>
+          </div>
+          <h3>Smart Routes Compared</h3>
+          <p>Multiple transport options analyzed per trip</p>
+        </div>
+        <div class="impact-card">
+          <div class="impact-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>User-Focused Design</h3>
+          <p>Built for students and daily commuters</p>
+        </div>
+        <div class="impact-card">
+          <div class="impact-icon">
+            <i class="fas fa-wallet"></i>
+          </div>
+          <h3>Fuel Cost Savings</h3>
+          <p>Estimated savings based on Indian averages</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS SECTION -->
+  <section class="section testimonials-section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>What Users Say</h2>
+        <p>Sample feedback for demonstration purposes.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="stars">★★★★★</div>
+          </div>
+          <p>"Eco-Route has transformed how I commute. I've reduced my carbon footprint by 40% in just three months!"</p>
+          <div class="testimonial-author">
+            <strong>Priya Sharma</strong>
+            <span>Environmental Advocate</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="stars">★★★★★</div>
+          </div>
+          <p>"The AI suggestions are incredibly accurate. I save money on fuel while helping the planet. Win-win!"</p>
+          <div class="testimonial-author">
+            <strong>Rajesh Kumar</strong>
+            <span>Daily Commuter</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="stars">★★★★★</div>
+          </div>
+          <p>"Simple, beautiful design. The environmental impact tracking keeps me motivated to make green choices."</p>
+          <div class="testimonial-author">
+            <strong>Ananya Desai</strong>
+            <span>Sustainability Enthusiast</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="section contact-section" id="contact">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Get In Touch</h2>
+        <p>We'd love to hear from you. Share your feedback, suggestions, or questions</p>
+      </div>
+      <div class="contact-content">
+        <div class="contact-info">
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="info-text">
+              <h4>Email Us</h4>
+              <p><a href="mailto:ecoroute.project@gmail.com">ecoroute.project@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="info-text">
+              <h4>Service Area</h4>
+              <p>India (Pilot Version)</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <div class="info-text">
+              <h4>Support</h4>
+              <p>Email-based assistance</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form">
+          <form id="contactForm">
+            <div class="form-group">
+              <input type="text" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="Subject" required>
+            </div>
+            <div class="form-group">
+              <textarea placeholder="Your Message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Go Green?</h2>
+      <p>Join users making smarter, eco-friendly travel choices every day.</p>
+      <a href="/entry" class="btn btn-cta">
+        <i class="fas fa-rocket"></i> Start Your Eco-Journey
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4><i class="fas fa-leaf"></i> Eco-Route</h4>
+          <p>Making eco-friendly travel decisions easier through smart route comparison.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how">How It Works</a></li>
+            <li><a href="/login">Login</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <p>Email: <a href="mailto:ecoroute.project@gmail.com">ecoroute.project@gmail.com</a></p>
+          <p>BE Third Year Project</p>
+        </div>
+        <div class="footer-section">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="https://x.com/" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.facebook.com/" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/accounts/login/?hl=en" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Eco-Route. All rights reserved. Committed to sustainable transportation.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

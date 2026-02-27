@@ -1,0 +1,65 @@
+body {
+  height: 100vh;
+  background: linear-gradient(
+    rgba(0,100,60,0.85),
+    rgba(0,100,60,0.85)
+  ), url("img1.jpg") no-repeat center/cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.auth-box {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  width: 360px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.auth-box h2 {
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  background: linear-gradient(135deg, #00e676, #00c853);
+  border: none;
+  color: #003300;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none;
+  border-color: #00c853;
+  box-shadow: 0 0 0 2px rgba(0,200,83,0.2);
+}
+@media (max-width: 768px) {
+  .hero {
+    padding-left: 20px;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 36px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+}

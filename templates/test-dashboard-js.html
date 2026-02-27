@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard JS Test</title>
+</head>
+<body>
+  <h1>Dashboard JavaScript Syntax Check</h1>
+  <p id="status">Loading...</p>
+  
+  <script>
+    // Try to load the dashboard.js file and check for errors
+    fetch('/static/js/dashboard.js')
+      .then(r => r.text())
+      .then(code => {
+        try {
+          // Create a function from the code to check syntax
+          new Function(code);
+          document.getElementById('status').innerHTML = '✅ Dashboard.js syntax is valid!';
+        } catch (e) {
+          document.getElementById('status').innerHTML = '❌ Syntax Error: ' + e.message;
+        }
+      })
+      .catch(e => {
+        document.getElementById('status').innerHTML = '⚠️ Could not load file: ' + e.message;
+      });
+  </script>
+</body>
+</html>

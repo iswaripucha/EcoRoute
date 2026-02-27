@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | Eco-Route</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #F7FFFB 0%, #E8F7F1 50%, #F0F9F5 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      padding: 40px 30px;
+      border: 1px solid rgba(47, 125, 79, 0.1);
+    }
+
+    .header {
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      color: #1a1a1a;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"] {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #2F7D4F;
+      box-shadow: 0 0 0 4px rgba(47, 125, 79, 0.1);
+    }
+
+    input:disabled {
+      background: #f5f5f5;
+      color: #999;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-row .form-group {
+      margin-bottom: 0;
+    }
+
+    .password-field {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 42px;
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 4px 8px;
+      transition: all 0.2s;
+    }
+
+    .toggle-password:hover {
+      color: #2F7D4F;
+    }
+
+    .password-strength {
+      margin-top: 8px;
+      height: 4px;
+      background: #e0e0e0;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .strength-meter {
+      height: 100%;
+      width: 0%;
+      transition: all 0.3s;
+      background: #E74C3C;
+    }
+
+    .strength-meter.weak {
+      width: 33%;
+      background: #E74C3C;
+    }
+
+    .strength-meter.fair {
+      width: 66%;
+      background: #F39C12;
+    }
+
+    .strength-meter.strong {
+      width: 100%;
+      background: #2F7D4F;
+    }
+
+    .strength-text {
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    .strength-text.weak {
+      color: #E74C3C;
+    }
+
+    .strength-text.fair {
+      color: #F39C12;
+    }
+
+    .strength-text.strong {
+      color: #2F7D4F;
+    }
+
+    .password-rules {
+      background: #F0F9F5;
+      border-left: 4px solid #2F7D4F;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+
+    .rule-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      color: #666;
+    }
+
+    .rule-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .rule-check {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      color: white;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .rule-item.met .rule-check {
+      background: #2F7D4F;
+    }
+
+    .rule-item.met {
+      color: #2F7D4F;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2F7D4F 0%, #25634A 100%);
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(47, 125, 79, 0.3);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .message {
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      display: none;
+      font-weight: 500;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.error {
+      display: block;
+      background: #FFF5F5;
+      color: #E74C3C;
+      border: 2px solid #FFB3B3;
+      box-shadow: 0 4px 12px rgba(231, 76, 60, 0.15);
+    }
+
+    .message.success {
+      display: block;
+      background: #F0F9F5;
+      color: #2F7D4F;
+      border: 2px solid #76C893;
+      box-shadow: 0 4px 12px rgba(47, 125, 79, 0.15);
+    }
+
+    .email-display {
+      background: #F0F9F5;
+      border: 1px solid #76C893;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .email-display strong {
+      color: #2F7D4F;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <!-- Header -->
+      <div class="header">
+        <h1>Create Your Account</h1>
+        <p class="subtitle">Just a few more details to get started</p>
+      </div>
+
+      <!-- Message -->
+      <div id="message" class="message"></div>
+
+      <!-- Verified Email Display -->
+      <div class="email-display">
+        ✓ Verified Email: <strong id="verifiedEmail"></strong>
+      </div>
+
+      <!-- Form -->
+      <form id="accountForm" onsubmit="handleAccountSetup(event)">
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            placeholder="John Doe"
+            required
+          >
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input 
+            type="date" 
+            id="dob" 
+            name="dob"
+            required
+          >
+        </div>
+
+        <!-- Password -->
+        <div class="form-group password-field">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            placeholder="••••••••"
+            onkeyup="checkPasswordStrength()"
+            required
+          >
+          <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">👁️</button>
+          
+          <div class="password-strength">
+            <div id="strengthMeter" class="strength-meter"></div>
+          </div>
+          <div id="strengthText" class="strength-text">Password strength: Weak</div>
+        </div>
+
+        <!-- Password Rules -->
+        <div class="password-rules">
+          <div class="rule-item" id="rule-length">
+            <div class="rule-check">✓</div>
+            <span>At least 8 characters</span>
+          </div>
+          <div class="rule-item" id="rule-uppercase">
+            <div class="rule-check">✓</div>
+            <span>At least one uppercase letter (A-Z)</span>
+          </div>
+          <div class="rule-item" id="rule-lowercase">
+            <div class="rule-check">✓</div>
+            <span>At least one lowercase letter (a-z)</span>
+          </div>
+          <div class="rule-item" id="rule-number">
+            <div class="rule-check">✓</div>
+            <span>At least one number (0-9)</span>
+          </div>
+          <div class="rule-item" id="rule-special">
+            <div class="rule-check">✓</div>
+            <span>At least one special character (!@#$%^&*)</span>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            name="confirmPassword" 
+            placeholder="••••••••"
+            onkeyup="checkPasswordMatch()"
+            required
+          >
+          <div id="passwordMatchMessage" style="font-size: 13px; margin-top: 6px; color: #999;"></div>
+        </div>
+
+        <!-- Terms Agreement -->
+        <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin-top: 24px;">
+          <input type="checkbox" id="terms" name="terms" required style="width: auto; cursor: pointer;">
+          <label for="terms" style="margin: 0; font-weight: 500; font-size: 13px;">
+            I agree to the <a href="#" style="color: #2F7D4F; text-decoration: none;">Terms of Service</a> and <a href="#" style="color: #2F7D4F; text-decoration: none;">Privacy Policy</a>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 20px;">
+          Create Account
+        </button>
+      </form>
+
+      <!-- Sign In Link -->
+      <p style="text-align: center; margin-top: 20px; font-size: 13px; color: #666;">
+        Already have an account? 
+        <a href="/login" style="color: #2F7D4F; text-decoration: none; font-weight: 600;">Sign in here</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Get verified email from sessionStorage
+    window.addEventListener('load', () => {
+      const verifiedEmail = sessionStorage.getItem('verified_email') || 'your-email@example.com';
+      document.getElementById('verifiedEmail').textContent = verifiedEmail;
+    });
+
+    // Password visibility toggle
+    function togglePasswordVisibility() {
+      const passwordInput = document.getElementById('password');
+      const btn = event.target;
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        btn.textContent = '🙈';
+      } else {
+        passwordInput.type = 'password';
+        btn.textContent = '👁️';
+      }
+    }
+
+    // Password strength checker
+    function checkPasswordStrength() {
+      const password = document.getElementById('password').value;
+      const strengthMeter = document.getElementById('strengthMeter');
+      const strengthText = document.getElementById('strengthText');
+
+      // Check rules
+      const rules = {
+        length: password.length >= 8,
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number: /\d/.test(password),
+        special: /[!@#$%^&*()_+\-=\[\]{};:'",.<>?/\\|`~]/.test(password)
+      };
+
+      // Update UI
+      updateRuleUI('rule-length', rules.length);
+      updateRuleUI('rule-uppercase', rules.uppercase);
+      updateRuleUI('rule-lowercase', rules.lowercase);
+      updateRuleUI('rule-number', rules.number);
+      updateRuleUI('rule-special', rules.special);
+
+      // Calculate strength
+      const metRules = Object.values(rules).filter(r => r).length;
+      let strength = 'weak';
+      let strengthLevel = 'Weak';
+
+      if (metRules >= 4) {
+        strength = 'strong';
+        strengthLevel = 'Strong';
+      } else if (metRules >= 3) {
+        strength = 'fair';
+        strengthLevel = 'Fair';
+      }
+
+      // Update strength meter
+      strengthMeter.className = `strength-meter ${strength}`;
+      strengthText.className = `strength-text ${strength}`;
+      strengthText.textContent = `Password strength: ${strengthLevel}`;
+    }
+
+    function updateRuleUI(ruleId, isMet) {
+      const ruleEl = document.getElementById(ruleId);
+      if (isMet) {
+        ruleEl.classList.add('met');
+      } else {
+        ruleEl.classList.remove('met');
+      }
+    }
+
+    // Check if passwords match
+    function checkPasswordMatch() {
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const messageEl = document.getElementById('passwordMatchMessage');
+
+      if (!confirmPassword) {
+        messageEl.textContent = '';
+        return;
+      }
+
+      if (password === confirmPassword) {
+        messageEl.textContent = '✓ Passwords match';
+        messageEl.style.color = '#2F7D4F';
+      } else {
+        messageEl.textContent = '✗ Passwords do not match';
+        messageEl.style.color = '#E74C3C';
+      }
+    }
+
+    // Form submission
+    function handleAccountSetup(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const dob = document.getElementById('dob').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const termsChecked = document.getElementById('terms').checked;
+      const email = document.getElementById('verifiedEmail').textContent;
+
+      // Validation
+      if (!name) {
+        showMessage('Please enter your full name', 'error');
+        return;
+      }
+
+      if (!dob) {
+        showMessage('Please select your date of birth', 'error');
+        return;
+      }
+
+      if (password.length < 8) {
+        showMessage('Password must be at least 8 characters', 'error');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showMessage('Passwords do not match', 'error');
+        return;
+      }
+
+      // Validate password strength
+      const hasUppercase = /[A-Z]/.test(password);
+      const hasLowercase = /[a-z]/.test(password);
+      const hasNumber = /\d/.test(password);
+      const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};:'",.<>?/\\|`~]/.test(password);
+
+      let missingRequirements = [];
+      if (!hasUppercase) missingRequirements.push('uppercase letter');
+      if (!hasLowercase) missingRequirements.push('lowercase letter');
+      if (!hasNumber) missingRequirements.push('number');
+      if (!hasSpecial) missingRequirements.push('special character');
+
+      if (missingRequirements.length > 0) {
+        showMessage(`Password missing: ${missingRequirements.join(', ')}`, 'error');
+        return;
+      }
+
+      if (!termsChecked) {
+        showMessage('Please agree to the terms and privacy policy', 'error');
+        return;
+      }
+
+      // Create account in localStorage
+      const users = JSON.parse(localStorage.getItem('ecoroute_users') || '{}');
+      
+      // Check if email already exists
+      if (users[email]) {
+        showMessage('This email is already registered', 'error');
+        return;
+      }
+
+      // Create new user
+      users[email] = {
+        name,
+        email,
+        dob,
+        password,
+        authMethod: 'email',
+        registrationDate: new Date().toISOString(),
+        profileCompleted: false
+      };
+
+      localStorage.setItem('ecoroute_users', JSON.stringify(users));
+
+      // Create session user object
+      const currentUser = {
+        name,
+        email,
+        dob,
+        profileCompleted: false,
+        authMethod: 'email',
+        preferences: {
+          priority: 'eco'
+        }
+      };
+
+      localStorage.setItem('ecoroute_user', JSON.stringify(currentUser));
+
+      // Clear sessionStorage
+      sessionStorage.removeItem('verified_email');
+      sessionStorage.removeItem('mock_otp');
+
+      showMessage('✓ Account created successfully!', 'success');
+
+      // Redirect to profile completion after 1.5s
+      setTimeout(() => {
+        window.location.href = '/profile';
+      }, 1500);
+    }
+
+    function showMessage(message, type = 'error') {
+      const msgEl = document.getElementById('message');
+      const icon = type === 'error' ? '❌' : '✅';
+      msgEl.innerHTML = `${icon} ${message}`;
+      msgEl.className = `message ${type}`;
+      
+      // Auto-hide success messages after 3 seconds
+      if (type === 'success') {
+        setTimeout(() => {
+          msgEl.style.display = 'none';
+        }, 3000);
+      }
+    }
+  </script>
+</body>
+</html>
