@@ -19,6 +19,4 @@ Endpoints:
 - `POST /predict-route` - JSON body: `{source, destination, people}` returns best option and CO2 estimates
 - `GET /health` - returns service status
 
-Notes:
-- The backend uses OpenRouteService (ORS) for geocoding and routing when `ORS_API_KEY` is set. If `ORS_API_KEY` is not provided, the backend falls back to a mock distance (100 km / 120 min).
-- The ML model is trained on synthetic data and saved to `backend/model.joblib` on first run.
+
